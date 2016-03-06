@@ -27,9 +27,8 @@ class legrandeco extends eqLogic {
 
 
   public static function cron() {
-    foreach (eqLogic::byType('legrandeco') as $legrandeco) {
+    foreach (eqLogic::byType('legrandeco',true) as $legrandeco) {
       if ($legrandeco->getIsEnable() == 1 ) {
-        log::add('legrandeco', 'debug', 'pull cron');
         $legrandeco->getInformations();
         $mc = cache::byKey('legrandecoWidgetdashboard' . $legrandeco->getId());
         $mc->remove();
@@ -39,6 +38,13 @@ class legrandeco extends eqLogic {
         $legrandeco->toHtml('mobile');
         $legrandeco->refreshWidget();
       }
+    }
+
+  }
+
+  public static function cronHourly() {
+    foreach (eqLogic::byType('legrandeco',true) as $legrandeco) {
+      $legrandeco->getConso();
     }
 
   }
@@ -177,7 +183,7 @@ class legrandeco extends eqLogic {
     $addr = $this->getConfiguration('addr', '');
     $devAddr = 'http://' . $addr . '/inst.json';
     $devResult = legrandeco::curl_get_file_contents($devAddr);
-    log::add('legrandeco', 'info', 'getInformations ' . $devAddr);
+    log::add('legrandeco', 'debug', 'getInformations ' . $devAddr);
     if ($devResult === false) {
       log::add('legrandeco', 'info', 'problème de connexion ' . $devAddr);
     } else {
@@ -210,6 +216,27 @@ class legrandeco extends eqLogic {
             $cmdlogic->event($value);
           }
         }
+      }
+    }
+  }
+
+  public function getConso() {
+    $addr = $this->getConfiguration('addr', '');
+    $devAddr = 'http://' . $addr . '/LOG2.CSV';
+    //$devResult = legrandeco::curl_get_file_contents($devAddr);
+    $devResult = fopen($devAddr, "r");
+    log::add('legrandeco', 'info', 'getConso ' . $devAddr);
+    /*
+    jour	mois	annee	heure	minute	energie_tele_info	prix_tele_info	energie_circuit1	prix_circuit1	energie_cirucit2	prix_circuit2	energie_circuit3	prix_circuit3	energie_circuit4	prix_circuit4	energie_circuit5	prix_circuit5	volume_entree1	volume_entree2	tarif	energie_entree1	energie_entree2	prix_entree1	prix_entree2
+17	8	15	20	2	0.000	0.000	0.000	0.000	0.000	0.000	0.000	0.000	0.000	0.000	0.000	0.000	0.000	0.000	0	0.000	0.000	0.000	0.000
+17	8	15	21	2	0.000	0.000	0.000	0.000	0.000	0.000	0.000	0.000	0.000	0.000	0.000	0.000	0.000	0.000	11	0.000	0.000	0.000	0.000
+*/
+    if ($devResult === false) {
+      log::add('legrandeco', 'info', 'problème de connexion ' . $devAddr);
+    } else {
+      while ( ($data = fgetcsv($devResult,1000,";") ) !== FALSE ) {
+        $num = count($data);
+        log::add('legrandeco', 'info', 'getConso ' . $num);
       }
     }
   }
