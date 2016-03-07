@@ -16,15 +16,9 @@
 * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
 */
 
-/* * ***************************Includes********************************* */
 require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
 class legrandeco extends eqLogic {
-  /*     * *************************Attributs****************************** */
-
-
-  /*     * ***********************Methode static*************************** */
-
 
   public static function cron() {
     foreach (eqLogic::byType('legrandeco',true) as $legrandeco) {
@@ -50,18 +44,18 @@ class legrandeco extends eqLogic {
   }
 
 
-  /*     * *********************Methode d'instance************************* */
-
   public function preUpdate() {
     if ($this->getConfiguration('addr') == '') {
       throw new Exception(__('L\'adresse ne peut être vide',__FILE__));
     }
   }
 
-  /*     * **********************Getteur Setteur*************************** */
+  public function postUpdate() {
+    $this->getInformations();
+    $this->getConso();
+  }
 
   public function toHtml($_version = 'dashboard') {
-
     $mc = cache::byKey('legrandecoWidget' . $_version . $this->getId());
     if ($mc->getValue() != '') {
       return $mc->getValue();
@@ -236,13 +230,163 @@ class legrandeco extends eqLogic {
     } else {
       while ( ($data = fgetcsv($devResult,1000,";") ) !== FALSE ) {
         $num = count($data);
-        log::add('legrandeco', 'info', 'getConso ' . $num);
+        if ($data[0] == date('j') && $data[1] == date('n') && $data[2] == date('y') && $data[3] == date('G')) {
+          $cmdlogic = legrandecoCmd::byEqLogicIdAndLogicalId($this->getId(),'energie_tele_info');
+          if (!is_object($cmdlogic)) {
+            $cmdlogic = new legrandecoCmd();
+            $cmdlogic->setEqLogic_id($this->getId());
+            $cmdlogic->setEqType('legrandeco');
+            $cmdlogic->setSubType('numeric');
+            $cmdlogic->setLogicalId('energie_tele_info');
+            $cmdlogic->setType('info');
+            $cmdlogic->setName( 'Teleinfo' );
+            $cmdlogic->setConfiguration('name', 'Teleinfo');
+          }
+            $cmdlogic->setConfiguration('value', $data[5]);
+            $cmdlogic->save();
+            $cmdlogic->event($data[5]);
+
+          $cmdlogic = legrandecoCmd::byEqLogicIdAndLogicalId($this->getId(),'energie_circuit1');
+          if (!is_object($cmdlogic)) {
+            $cmdlogic = new legrandecoCmd();
+            $cmdlogic->setEqLogic_id($this->getId());
+            $cmdlogic->setEqType('legrandeco');
+            $cmdlogic->setSubType('numeric');
+            $cmdlogic->setLogicalId('energie_circuit1');
+            $cmdlogic->setType('info');
+            $cmdlogic->setName( 'Pince 1' );
+            $cmdlogic->setConfiguration('name', 'Pince 1');
+          }
+            $cmdlogic->setConfiguration('value', $data[7]);
+            $cmdlogic->save();
+            $cmdlogic->event($data[7]);
+
+          $cmdlogic = legrandecoCmd::byEqLogicIdAndLogicalId($this->getId(),'energie_circuit2');
+          if (!is_object($cmdlogic)) {
+            $cmdlogic = new legrandecoCmd();
+            $cmdlogic->setEqLogic_id($this->getId());
+            $cmdlogic->setEqType('legrandeco');
+            $cmdlogic->setSubType('numeric');
+            $cmdlogic->setLogicalId('energie_circuit2');
+            $cmdlogic->setType('info');
+            $cmdlogic->setName( 'Pince 2' );
+            $cmdlogic->setConfiguration('name', 'Pince 2');
+          }
+            $cmdlogic->setConfiguration('value', $data[9]);
+            $cmdlogic->save();
+            $cmdlogic->event($data[9]);
+
+          $cmdlogic = legrandecoCmd::byEqLogicIdAndLogicalId($this->getId(),'energie_circuit3');
+          if (!is_object($cmdlogic)) {
+            $cmdlogic = new legrandecoCmd();
+            $cmdlogic->setEqLogic_id($this->getId());
+            $cmdlogic->setEqType('legrandeco');
+            $cmdlogic->setSubType('numeric');
+            $cmdlogic->setLogicalId('energie_circuit3');
+            $cmdlogic->setType('info');
+            $cmdlogic->setName( 'Pince 3' );
+            $cmdlogic->setConfiguration('name', 'Pince 3');
+          }
+            $cmdlogic->setConfiguration('value', $data[11]);
+            $cmdlogic->save();
+            $cmdlogic->event($data[11]);
+
+          $cmdlogic = legrandecoCmd::byEqLogicIdAndLogicalId($this->getId(),'energie_circuit4');
+          if (!is_object($cmdlogic)) {
+            $cmdlogic = new legrandecoCmd();
+            $cmdlogic->setEqLogic_id($this->getId());
+            $cmdlogic->setEqType('legrandeco');
+            $cmdlogic->setSubType('numeric');
+            $cmdlogic->setLogicalId('energie_circuit4');
+            $cmdlogic->setType('info');
+            $cmdlogic->setName( 'Pince 4' );
+            $cmdlogic->setConfiguration('name', 'Pince 4');
+          }
+            $cmdlogic->setConfiguration('value', $data[13]);
+            $cmdlogic->save();
+            $cmdlogic->event($data[13]);
+
+          $cmdlogic = legrandecoCmd::byEqLogicIdAndLogicalId($this->getId(),'energie_circuit5');
+          if (!is_object($cmdlogic)) {
+            $cmdlogic = new legrandecoCmd();
+            $cmdlogic->setEqLogic_id($this->getId());
+            $cmdlogic->setEqType('legrandeco');
+            $cmdlogic->setSubType('numeric');
+            $cmdlogic->setLogicalId('energie_circuit5');
+            $cmdlogic->setType('info');
+            $cmdlogic->setName( 'Pince 5' );
+            $cmdlogic->setConfiguration('name', 'Pince 5');
+          }
+            $cmdlogic->setConfiguration('value', $data[15]);
+            $cmdlogic->save();
+            $cmdlogic->event($data[15]);
+
+          $cmdlogic = legrandecoCmd::byEqLogicIdAndLogicalId($this->getId(),'volume_entree1');
+          if (!is_object($cmdlogic)) {
+            $cmdlogic = new legrandecoCmd();
+            $cmdlogic->setEqLogic_id($this->getId());
+            $cmdlogic->setEqType('legrandeco');
+            $cmdlogic->setSubType('numeric');
+            $cmdlogic->setLogicalId('volume_entree1');
+            $cmdlogic->setType('info');
+            $cmdlogic->setName( 'Impulsion 1' );
+            $cmdlogic->setConfiguration('name', 'Impulsion 1');
+          }
+            $cmdlogic->setConfiguration('value', $data[17]);
+            $cmdlogic->save();
+            $cmdlogic->event($data[17]]);
+
+          $cmdlogic = legrandecoCmd::byEqLogicIdAndLogicalId($this->getId(),'volume_entree2');
+          if (!is_object($cmdlogic)) {
+            $cmdlogic = new legrandecoCmd();
+            $cmdlogic->setEqLogic_id($this->getId());
+            $cmdlogic->setEqType('legrandeco');
+            $cmdlogic->setSubType('numeric');
+            $cmdlogic->setLogicalId('volume_entree2');
+            $cmdlogic->setType('info');
+            $cmdlogic->setName( 'Impulsion 2' );
+            $cmdlogic->setConfiguration('name', 'Impulsion 2');
+          }
+            $cmdlogic->setConfiguration('value', $data[18]);
+            $cmdlogic->save();
+            $cmdlogic->event($data[18]);
+
+          $cmdlogic = legrandecoCmd::byEqLogicIdAndLogicalId($this->getId(),'energie_entree1');
+          if (!is_object($cmdlogic)) {
+            $cmdlogic = new legrandecoCmd();
+            $cmdlogic->setEqLogic_id($this->getId());
+            $cmdlogic->setEqType('legrandeco');
+            $cmdlogic->setSubType('numeric');
+            $cmdlogic->setLogicalId('energie_entree1');
+            $cmdlogic->setType('info');
+            $cmdlogic->setName( 'Vol Impulsion 1' );
+            $cmdlogic->setConfiguration('name', 'Vol Impulsion 1');
+          }
+            $cmdlogic->setConfiguration('value', $data[20]);
+            $cmdlogic->save();
+            $cmdlogic->event($data[20]);
+
+          $cmdlogic = legrandecoCmd::byEqLogicIdAndLogicalId($this->getId(),'energie_entree2');
+          if (!is_object($cmdlogic)) {
+            $cmdlogic = new legrandecoCmd();
+            $cmdlogic->setEqLogic_id($this->getId());
+            $cmdlogic->setEqType('legrandeco');
+            $cmdlogic->setSubType('numeric');
+            $cmdlogic->setLogicalId('energie_entree2');
+            $cmdlogic->setType('info');
+            $cmdlogic->setName( 'Vol Impulsion 2' );
+            $cmdlogic->setConfiguration('name', 'Vol Impulsion 2');
+          }
+            $cmdlogic->setConfiguration('value', $data[21]);
+            $cmdlogic->save();
+            $cmdlogic->event($data[21]);
+        }
+
       }
     }
   }
 
-  public function curl_get_file_contents($URL)
-  {
+  public function curl_get_file_contents($URL)  {
     $c = curl_init();
     curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($c, CURLOPT_URL, $URL);
@@ -261,7 +405,6 @@ class legrandecoCmd extends cmd {
     switch ($this->getType()) {
       case 'info' :
       return $this->getConfiguration('value');
-      log::add('legrandeco', 'debug', 'value ' . $this->getConfiguration('value'));
       break;
     }
 
