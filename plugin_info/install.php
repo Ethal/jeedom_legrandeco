@@ -20,13 +20,29 @@ require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
 
 
 function legrandeco_install() {
+  $cron = cron::byClassAndFunction('legrandeco', 'pull');
+    if (!is_object($cron)) {
+      $cron = new cron();
+      $cron->setClass('legrandeco');
+      $cron->setFunction('getConso');
+      $cron->setEnable(1);
+      $cron->setDeamon(0);
+      $cron->setSchedule('3 * * * *');
+      $cron->save();
+    }
 }
 
 function legrandeco_update() {
   $cron = cron::byClassAndFunction('legrandeco', 'pull');
-  if (is_object($cron)) {
-      $cron->remove();
-  }
+    if (!is_object($cron)) {
+      $cron = new cron();
+      $cron->setClass('legrandeco');
+      $cron->setFunction('getConso');
+      $cron->setEnable(1);
+      $cron->setDeamon(0);
+      $cron->setSchedule('3 * * * *');
+      $cron->save();
+    }
 }
 
 function legrandeco_remove() {

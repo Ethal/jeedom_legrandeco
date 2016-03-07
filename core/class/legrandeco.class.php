@@ -334,7 +334,7 @@ class legrandeco extends eqLogic {
           }
             $cmdlogic->setConfiguration('value', $data[17]);
             $cmdlogic->save();
-            $cmdlogic->event($data[17]]);
+            $cmdlogic->event($data[17]);
 
           $cmdlogic = legrandecoCmd::byEqLogicIdAndLogicalId($this->getId(),'volume_entree2');
           if (!is_object($cmdlogic)) {

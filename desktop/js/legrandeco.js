@@ -48,7 +48,7 @@ function addCmdToTable(_cmd) {
 			tr += '<span class="cmdAttr" data-l1key="id"></span>';
         tr += '</td>';
         tr += '<td>';
-			tr += '<span class="cmdAttr" data-l1key="name"></span></td>';
+			tr += '<input class="cmdAttr form-control input-sm" data-l1key="name" style="width : 140px;" placeholder="{{Nom du capteur}}"></td>';
         tr += '<td>';
         tr += '<span class="cmdAttr" data-l1key="configuration" data-l2key="value"></span>';
         tr += '</td>';
