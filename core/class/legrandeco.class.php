@@ -20,17 +20,12 @@ require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
 class legrandeco extends eqLogic {
 
+  public static $_widgetPossibility = array('custom' => true);
+
   public static function cron() {
     foreach (eqLogic::byType('legrandeco',true) as $legrandeco) {
       if ($legrandeco->getIsEnable() == 1 ) {
         $legrandeco->getInformations();
-        $mc = cache::byKey('legrandecoWidgetdashboard' . $legrandeco->getId());
-        $mc->remove();
-        $mc = cache::byKey('legrandecoWidgetmobile' . $legrandeco->getId());
-        $mc->remove();
-        $legrandeco->toHtml('dashboard');
-        $legrandeco->toHtml('mobile');
-        $legrandeco->refreshWidget();
       }
     }
 
@@ -56,53 +51,24 @@ class legrandeco extends eqLogic {
   }
 
   public function toHtml($_version = 'dashboard') {
-    $mc = cache::byKey('legrandecoWidget' . $_version . $this->getId());
-    if ($mc->getValue() != '') {
-      return $mc->getValue();
+    $replace = $this->preToHtml($_version);
+    if (!is_array($replace)) {
+      return $replace;
     }
-    if ($this->getIsEnable() != 1) {
-            return '';
-        }
-        if (!$this->hasRight('r')) {
-            return '';
-        }
-        $_version = jeedom::versionAlias($_version);
-        if ($this->getDisplay('hideOn' . $_version) == 1) {
-            return '';
-        }
-        $vcolor = 'cmdColor';
-        if ($_version == 'mobile') {
-            $vcolor = 'mcmdColor';
-        }
-        $parameters = $this->getDisplay('parameters');
-        $cmdColor = ($this->getPrimaryCategory() == '') ? '' : jeedom::getConfiguration('eqLogic:category:' . $this->getPrimaryCategory() . ':' . $vcolor);
-        if (is_array($parameters) && isset($parameters['background_cmd_color'])) {
-            $cmdColor = $parameters['background_cmd_color'];
-        }
+    $version = jeedom::versionAlias($_version);
+    if ($this->getDisplay('hideOn' . $version) == 1) {
+      return '';
+    }
 
-        if (($_version == 'dview' || $_version == 'mview') && $this->getDisplay('doNotShowNameOnView') == 1) {
-            $replace['#name#'] = '';
-            $replace['#object_name#'] = (is_object($object)) ? $object->getName() : '';
-        }
-        if (($_version == 'mobile' || $_version == 'dashboard') && $this->getDisplay('doNotShowNameOnDashboard') == 1) {
-            $replace['#name#'] = '<br/>';
-            $replace['#object_name#'] = (is_object($object)) ? $object->getName() : '';
-        }
-
-        if (is_array($parameters)) {
-            foreach ($parameters as $key => $value) {
-                $replace['#' . $key . '#'] = $value;
-            }
-        }
-    $background=$this->getBackgroundColor($_version);
-    $replace = array(
-      '#name#' => $this->getName(),
-      '#id#' => $this->getId(),
-      '#background_color#' => $background,
-      '#height#' => $this->getDisplay('height', 'auto'),
-      '#width#' => $this->getDisplay('width', '200px'),
-      '#eqLink#' => ($this->hasRight('w')) ? $this->getLinkToConfiguration() : '#',
-    );
+    foreach ($this->getCmd('info') as $cmd) {
+      $replace['#' . $cmd->getLogicalId() . '_history#'] = '';
+      $replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
+      $replace['#' . $cmd->getLogicalId() . '#'] = $cmd->execCmd();
+      $replace['#' . $cmd->getLogicalId() . '_collect#'] = $cmd->getCollectDate();
+      if ($cmd->getIsHistorized() == 1) {
+        $replace['#' . $cmd->getLogicalId() . '_history#'] = 'history cursor';
+      }
+    }
 
     $data = $this->getCmd(null, 'data1');
     if (is_object($data) && $data->getIsVisible()) {
@@ -153,23 +119,7 @@ class legrandeco extends eqLogic {
       $replace['#data7#'] = '<div class="col-md-4 data1' . $this->getId() . '"><center></center></div><div class="col-md-8 data1' . $this->getId() . '"><span class="cmd tooltips cmd cmd-widget" data-type="info" data-subtype="numeric" data-cmd_id="data"></span></div>';
     }
 
-    $replace['#name#'] = $this->getName();
-    $replace['#id#'] = $this->getId();
-    $replace['#collectDate#'] = '';
-    $replace['#background_color#'] = $this->getBackgroundColor(jeedom::versionAlias($_version));
-    $replace['#eqLink#'] = $this->getLinkToConfiguration();
-
-    $parameters = $this->getDisplay('parameters');
-    if (is_array($parameters)) {
-      foreach ($parameters as $key => $value) {
-        $replace['#' . $key . '#'] = $value;
-        log::add('legrandeco', 'debug', $key . ' ' . $value);
-      }
-    } else {
-      log::add('legrandeco', 'debug', 'widget param');
-    }
     $html = template_replace($replace, getTemplate('core', $_version, 'legrandeco', 'legrandeco'));
-    cache::set('legrandecoWidget' . $_version . $this->getId(), $html, 0);
     return $html;
   }
 
