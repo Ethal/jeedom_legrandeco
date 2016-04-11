@@ -163,6 +163,7 @@ class legrandeco extends eqLogic {
         }
       }
     }
+    $this->refreshWidget();
   }
 
   public function getConso() {
