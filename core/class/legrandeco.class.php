@@ -26,6 +26,7 @@ class legrandeco extends eqLogic {
     foreach (eqLogic::byType('legrandeco',true) as $legrandeco) {
       if ($legrandeco->getIsEnable() == 1 ) {
         $legrandeco->getInformations();
+        $legrandeco->getData();
       }
     }
 
@@ -47,6 +48,7 @@ class legrandeco extends eqLogic {
 
   public function postUpdate() {
     $this->getInformations();
+    $this->getData();
     $this->getConso();
   }
 
@@ -137,6 +139,48 @@ class legrandeco extends eqLogic {
       foreach($devList as $name => $value) {
         if ($name === 'heure' || $name === 'minute') {
           // pas de traitement sur l'heure
+        } else {
+          log::add('legrandeco', 'debug', 'Sonde trouvée : ' . $name . ', valeur ' . $value);
+          $cmdlogic = legrandecoCmd::byEqLogicIdAndLogicalId($this->getId(),$name);
+          if (!is_object($cmdlogic)) {
+            log::add('legrandeco', 'debug', 'Information non existante, création');
+            $newLegrand = new legrandecoCmd();
+            $newLegrand->setEqLogic_id($this->getId());
+            $newLegrand->setEqType('legrandeco');
+            $newLegrand->setIsVisible(1);
+            $newLegrand->setIsHistorized(0);
+            $newLegrand->setSubType('numeric');
+            $newLegrand->setLogicalId($name);
+            $newLegrand->setType('info');
+            $newLegrand->setName( $name );
+            $newLegrand->setConfiguration('name', $name);
+            $newLegrand->setConfiguration('value', $value);
+            $newLegrand->save();
+            $newLegrand->event($value);
+          } else {
+            $cmdlogic->setConfiguration('value', $value);
+            $cmdlogic->save();
+            $cmdlogic->event($value);
+          }
+        }
+      }
+    }
+    $this->refreshWidget();
+  }
+
+  public function getData() {
+    $addr = $this->getConfiguration('addr', '');
+    $devAddr = 'http://' . $addr . '/data.json';
+    $devResult = legrandeco::curl_get_file_contents($devAddr);
+    log::add('legrandeco', 'debug', 'getInformations ' . $devAddr);
+    if ($devResult === false) {
+      log::add('legrandeco', 'info', 'problème de connexion ' . $devAddr);
+    } else {
+      $devResbis = utf8_encode($devResult);
+      $devList = json_decode($devResbis, true);
+      foreach($devList as $name => $value) {
+        if (strpos($name,'type_imp') !== false || strpos($name,'label_entree') !== false || strpos($name,'entree_imp') !== false) {
+          // pas de traitement sur ces données
         } else {
           log::add('legrandeco', 'debug', 'Sonde trouvée : ' . $name . ', valeur ' . $value);
           $cmdlogic = legrandecoCmd::byEqLogicIdAndLogicalId($this->getId(),$name);

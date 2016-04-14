@@ -14,3 +14,7 @@ L'écocompteur dispose des informations suivantes :
 A la création d'un équipement Jeedom, toutes les consommations relevées par le compteur sont automatiquement créées et remontées en informations.
 
 Une mesure est faite toutes les 2 minutes.
+
+Un très bon article de présentation et mise en place de l'écocompteur est disponible sur le blog Domadoo :
+
+http://blog.domadoo.fr/2016/04/14/ecocompteur-legrand-consommations-electricite-eau-gaz/?utm_medium=feed&utm_source=feedpress.me&utm_campaign=Feed%3A+domadoohttp://blog.domadoo.fr/2016/04/14/ecocompteur-legrand-consommations-electricite-eau-gaz/?utm_medium=feed&utm_source=feedpress.me&utm_campaign=Feed%3A+domadoo
