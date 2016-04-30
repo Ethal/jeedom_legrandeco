@@ -24,11 +24,9 @@ class legrandeco extends eqLogic {
 
   public static function cron() {
     foreach (eqLogic::byType('legrandeco',true) as $legrandeco) {
-      if ($legrandeco->getIsEnable() == 1 ) {
         $legrandeco->getInformations();
-        $legrandeco->getTeleinfo();
+        //$legrandeco->getTeleinfo();
         $legrandeco->getData();
-      }
     }
 
   }
