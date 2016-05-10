@@ -25,7 +25,7 @@ class legrandeco extends eqLogic {
   public static function cron() {
     foreach (eqLogic::byType('legrandeco',true) as $legrandeco) {
         $legrandeco->getInformations();
-        //$legrandeco->getTeleinfo();
+        $legrandeco->getTeleinfo();
         $legrandeco->getData();
     }
 
@@ -49,6 +49,7 @@ class legrandeco extends eqLogic {
     $this->getInformations();
     $this->getData();
     $this->getConso();
+    $this->getTeleinfo();
   }
 
   public function toHtml($_version = 'dashboard') {
@@ -135,6 +136,7 @@ class legrandeco extends eqLogic {
     } else {
       $devResbis = utf8_encode($devResult);
       $devList = json_decode($devResbis, true);
+      log::add('legrandeco', 'debug', print_r($devList, true));
       foreach($devList as $name => $value) {
         if ($name === 'heure' || $name === 'minute') {
           // pas de traitement sur l'heure
@@ -246,6 +248,7 @@ public function getData() {
   } else {
     $devResbis = utf8_encode($devResult);
     $devList = json_decode($devResbis, true);
+    log::add('legrandeco', 'debug', print_r($devList, true));
     foreach($devList as $name => $value) {
       if (strpos($name,'type_imp') !== false || strpos($name,'label_entree') !== false || strpos($name,'entree_imp') !== false) {
         // pas de traitement sur ces données
