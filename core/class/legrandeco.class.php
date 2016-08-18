@@ -278,7 +278,7 @@ public function getData() {
             $newLegrand->event($value);
           } else {
             $cmdlogic->setConfiguration('value', $value);
-            $newLegrand->setConfiguration('type', 'data');
+            $cmdlogic->setConfiguration('type', 'data');
             $cmdlogic->save();
             $cmdlogic->event($value);
           }
