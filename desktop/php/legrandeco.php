@@ -55,7 +55,10 @@ $eqLogics = eqLogic::byType('legrandeco');
 
     <ul class="nav nav-tabs" role="tablist">
       <li role="presentation" class="active"><a href="#eqlogictab" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-tachometer"></i> {{Equipement}}</a></li>
-      <li role="presentation"><a href="#commandtab" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> {{Commandes}}</a></li>
+      <li role="presentation"><a href="#insttab" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> {{Commandes}}</a></li>
+      <li role="presentation"><a href="#datatab" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> {{Commandes}}</a></li>
+      <li role="presentation"><a href="#teleinfotab" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> {{Commandes}}</a></li>
+      <li role="presentation"><a href="#csvtab" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> {{Commandes}}</a></li>
     </ul>
 
     <div class="tab-content" style="height:calc(100% - 50px);overflow:auto;overflow-x: hidden;">
@@ -123,9 +126,66 @@ $eqLogics = eqLogic::byType('legrandeco');
           </fieldset>
         </form>
       </div>
-      <div role="tabpanel" class="tab-pane" id="commandtab">
+      <div role="tabpanel" class="tab-pane" id="insttab">
 
-        <table id="table_cmd" class="table table-bordered table-condensed">
+        <table id="inst_cmd" class="table table-bordered table-condensed">
+          <thead>
+            <tr>
+              <th style="width: 50px;">#</th>
+              <th style="width: 300px;">{{Nom}}</th>
+              <th style="width: 250px;">{{Valeur}}</th>
+              <th style="width: 200px;">{{Paramètres}}</th>
+              <th style="width: 100px;"></th>
+            </tr>
+          </thead>
+          <tbody>
+
+          </tbody>
+        </table>
+
+      </div>
+
+      <div role="tabpanel" class="tab-pane" id="datatab">
+
+        <table id="data_cmd" class="table table-bordered table-condensed">
+          <thead>
+            <tr>
+              <th style="width: 50px;">#</th>
+              <th style="width: 300px;">{{Nom}}</th>
+              <th style="width: 250px;">{{Valeur}}</th>
+              <th style="width: 200px;">{{Paramètres}}</th>
+              <th style="width: 100px;"></th>
+            </tr>
+          </thead>
+          <tbody>
+
+          </tbody>
+        </table>
+
+      </div>
+
+      <div role="tabpanel" class="tab-pane" id="teleinfotab">
+
+        <table id="teleinfo_cmd" class="table table-bordered table-condensed">
+          <thead>
+            <tr>
+              <th style="width: 50px;">#</th>
+              <th style="width: 300px;">{{Nom}}</th>
+              <th style="width: 250px;">{{Valeur}}</th>
+              <th style="width: 200px;">{{Paramètres}}</th>
+              <th style="width: 100px;"></th>
+            </tr>
+          </thead>
+          <tbody>
+
+          </tbody>
+        </table>
+
+      </div>
+
+      <div role="tabpanel" class="tab-pane" id="csvtab">
+
+        <table id="csv_cmd" class="table table-bordered table-condensed">
           <thead>
             <tr>
               <th style="width: 50px;">#</th>

@@ -156,10 +156,12 @@ class legrandeco extends eqLogic {
             $newLegrand->setName( 'Information - ' . $name );
             $newLegrand->setConfiguration('name', $name);
             $newLegrand->setConfiguration('value', $value);
+            $newLegrand->setConfiguration('type', 'inst');
             $newLegrand->save();
             $newLegrand->event($value);
           } else {
             $cmdlogic->setConfiguration('value', $value);
+            $cmdlogic->setConfiguration('type', 'inst');
             $cmdlogic->save();
             $cmdlogic->event($value);
           }
@@ -206,10 +208,12 @@ class legrandeco extends eqLogic {
           $newLegrand->setName( 'Teleinfo - ' . $text );
           $newLegrand->setConfiguration('name', $name);
           $newLegrand->setConfiguration('value', $value);
+          $newLegrand->setConfiguration('type', 'teleinfo');
           $newLegrand->save();
           $newLegrand->event($value);
         } else {
           $cmdlogic->setConfiguration('value', $value);
+          $cmdlogic->setConfiguration('type', 'teleinfo');
           $cmdlogic->save();
           $cmdlogic->event($value);
         }
@@ -269,10 +273,12 @@ public function getData() {
             $newLegrand->setName( 'Data - ' . $name );
             $newLegrand->setConfiguration('name', $name);
             $newLegrand->setConfiguration('value', $value);
+            $newLegrand->setConfiguration('type', 'data');
             $newLegrand->save();
             $newLegrand->event($value);
           } else {
             $cmdlogic->setConfiguration('value', $value);
+            $newLegrand->setConfiguration('type', 'data');
             $cmdlogic->save();
             $cmdlogic->event($value);
           }
@@ -313,6 +319,7 @@ public function getConso($id) {
           $cmdlogic->setConfiguration('name', 'Conso Teleinfo');
         }
         $cmdlogic->setConfiguration('value', $data[5]);
+        $cmdlogic->setConfiguration('type', 'csv');
         $cmdlogic->save();
         $cmdlogic->event($data[5]);
 
@@ -328,6 +335,7 @@ public function getConso($id) {
           $cmdlogic->setConfiguration('name', 'Pince 1');
         }
         $cmdlogic->setConfiguration('value', $data[7]);
+        $cmdlogic->setConfiguration('type', 'csv');
         $cmdlogic->save();
         $cmdlogic->event($data[7]);
 
@@ -343,6 +351,7 @@ public function getConso($id) {
           $cmdlogic->setConfiguration('name', 'Pince 2');
         }
         $cmdlogic->setConfiguration('value', $data[9]);
+        $cmdlogic->setConfiguration('type', 'csv');
         $cmdlogic->save();
         $cmdlogic->event($data[9]);
 
@@ -358,6 +367,7 @@ public function getConso($id) {
           $cmdlogic->setConfiguration('name', 'Pince 3');
         }
         $cmdlogic->setConfiguration('value', $data[11]);
+        $cmdlogic->setConfiguration('type', 'csv');
         $cmdlogic->save();
         $cmdlogic->event($data[11]);
 
@@ -373,6 +383,7 @@ public function getConso($id) {
           $cmdlogic->setConfiguration('name', 'Pince 4');
         }
         $cmdlogic->setConfiguration('value', $data[13]);
+        $cmdlogic->setConfiguration('type', 'csv');
         $cmdlogic->save();
         $cmdlogic->event($data[13]);
 
@@ -388,6 +399,7 @@ public function getConso($id) {
           $cmdlogic->setConfiguration('name', 'Pince 5');
         }
         $cmdlogic->setConfiguration('value', $data[15]);
+        $cmdlogic->setConfiguration('type', 'csv');
         $cmdlogic->save();
         $cmdlogic->event($data[15]);
 
@@ -403,6 +415,7 @@ public function getConso($id) {
           $cmdlogic->setConfiguration('name', 'Impulsion 1');
         }
         $cmdlogic->setConfiguration('value', $data[17]);
+        $cmdlogic->setConfiguration('type', 'csv');
         $cmdlogic->save();
         $cmdlogic->event($data[17]);
 
@@ -418,6 +431,7 @@ public function getConso($id) {
           $cmdlogic->setConfiguration('name', 'Impulsion 2');
         }
         $cmdlogic->setConfiguration('value', $data[18]);
+        $cmdlogic->setConfiguration('type', 'csv');
         $cmdlogic->save();
         $cmdlogic->event($data[18]);
 
@@ -433,6 +447,7 @@ public function getConso($id) {
           $cmdlogic->setConfiguration('name', 'Vol Impulsion 1');
         }
         $cmdlogic->setConfiguration('value', $data[20]);
+        $cmdlogic->setConfiguration('type', 'csv');
         $cmdlogic->save();
         $cmdlogic->event($data[20]);
 
@@ -448,6 +463,7 @@ public function getConso($id) {
           $cmdlogic->setConfiguration('name', 'Vol Impulsion 2');
         }
         $cmdlogic->setConfiguration('value', $data[21]);
+        $cmdlogic->setConfiguration('type', 'csv');
         $cmdlogic->save();
         $cmdlogic->event($data[21]);
       }
