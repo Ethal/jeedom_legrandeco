@@ -25,13 +25,13 @@ class legrandeco extends eqLogic {
   public static function cron() {
     foreach (eqLogic::byType('legrandeco',true) as $legrandeco) {
         $legrandeco->getInformations();
-        $legrandeco->getTeleinfo();
+        //$legrandeco->getTeleinfo();
         $legrandeco->getData();
     }
 
   }
 
-  public static function cronHourly() {
+  public function getConsoAll() {
     foreach (eqLogic::byType('legrandeco',true) as $legrandeco) {
       $legrandeco->getConso($legrandeco->getId());
     }
@@ -49,7 +49,7 @@ class legrandeco extends eqLogic {
     $this->getInformations();
     $this->getData();
     $this->getConso($this->getId());
-    $this->getTeleinfo();
+    //$this->getTeleinfo();
   }
 
   public function toHtml($_version = 'dashboard') {
@@ -270,15 +270,15 @@ public function getData() {
             $newLegrand->setSubType('numeric');
             $newLegrand->setLogicalId($name);
             $newLegrand->setType('info');
-            $newLegrand->setName( 'Data - ' . $name );
+            $newLegrand->setName( 'Teleinfo - ' . $name );
             $newLegrand->setConfiguration('name', $name);
             $newLegrand->setConfiguration('value', $value);
-            $newLegrand->setConfiguration('type', 'data');
+            $newLegrand->setConfiguration('type', 'teleinfo');
             $newLegrand->save();
             $newLegrand->event($value);
           } else {
             $cmdlogic->setConfiguration('value', $value);
-            $cmdlogic->setConfiguration('type', 'data');
+            $cmdlogic->setConfiguration('type', 'teleinfo');
             $cmdlogic->save();
             $cmdlogic->event($value);
           }

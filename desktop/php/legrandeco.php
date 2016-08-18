@@ -56,7 +56,6 @@ $eqLogics = eqLogic::byType('legrandeco');
     <ul class="nav nav-tabs" role="tablist">
       <li role="presentation" class="active"><a href="#eqlogictab" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-tachometer"></i> {{Equipement}}</a></li>
       <li role="presentation"><a href="#insttab" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> {{Instantanée}}</a></li>
-      <li role="presentation"><a href="#datatab" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> {{Données}}</a></li>
       <li role="presentation"><a href="#teleinfotab" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> {{Téléinfo}}</a></li>
       <li role="presentation"><a href="#csvtab" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> {{Historique}}</a></li>
     </ul>
@@ -129,25 +128,6 @@ $eqLogics = eqLogic::byType('legrandeco');
       <div role="tabpanel" class="tab-pane" id="insttab">
 
         <table id="inst_cmd" class="table table-bordered table-condensed">
-          <thead>
-            <tr>
-              <th style="width: 50px;">#</th>
-              <th style="width: 300px;">{{Nom}}</th>
-              <th style="width: 250px;">{{Valeur}}</th>
-              <th style="width: 200px;">{{Paramètres}}</th>
-              <th style="width: 100px;"></th>
-            </tr>
-          </thead>
-          <tbody>
-
-          </tbody>
-        </table>
-
-      </div>
-
-      <div role="tabpanel" class="tab-pane" id="datatab">
-
-        <table id="data_cmd" class="table table-bordered table-condensed">
           <thead>
             <tr>
               <th style="width: 50px;">#</th>

@@ -24,7 +24,7 @@ function legrandeco_install() {
     if (!is_object($cron)) {
       $cron = new cron();
       $cron->setClass('legrandeco');
-      $cron->setFunction('getConso');
+      $cron->setFunction('getConsoAll');
       $cron->setEnable(1);
       $cron->setDeamon(0);
       $cron->setSchedule('3 * * * *');
@@ -37,7 +37,7 @@ function legrandeco_update() {
     if (!is_object($cron)) {
       $cron = new cron();
       $cron->setClass('legrandeco');
-      $cron->setFunction('getConso');
+      $cron->setFunction('getConsoAll');
       $cron->setEnable(1);
       $cron->setDeamon(0);
       $cron->setSchedule('3 * * * *');

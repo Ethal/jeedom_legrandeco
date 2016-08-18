@@ -47,9 +47,6 @@ function addCmdToTable(_cmd) {
     if (init(_cmd.configuration.type) == 'inst') {
       $('#inst_cmd tbody').append(tr);
       var tr = $('#inst_cmd tbody tr:last');
-    } else if (init(_cmd.configuration.type) == 'data') {
-      $('#data_cmd tbody').append(tr);
-      var tr = $('#data_cmd tbody tr:last');
     } else if (init(_cmd.configuration.type) == 'csv') {
       $('#csv_cmd tbody').append(tr);
       var tr = $('#csv_cmd tbody tr:last');
