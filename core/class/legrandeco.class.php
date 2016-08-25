@@ -251,7 +251,10 @@ public function getData() {
     log::add('legrandeco', 'info', 'problème de connexion ' . $devAddr);
   } else {
     $devResbis = utf8_encode($devResult);
-    $devList = json_decode($devResbis, true);
+    $corrected = preg_replace('/\s+/', '', $devResbis);
+    $corrected = preg_replace('/\:0,/', ': 0,', $corrected);
+    $corrected = preg_replace('/\:[0]+/', ":", $corrected);
+    $devList = json_decode($corrected, true);
     log::add('legrandeco', 'debug', print_r($devList, true));
     if (json_last_error() == JSON_ERROR_NONE) {
       foreach($devList as $name => $value) {
