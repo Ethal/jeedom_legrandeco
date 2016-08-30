@@ -121,9 +121,7 @@ class legrandeco extends eqLogic {
       $replace['#data7#'] = '<div class="col-md-4 data1' . $this->getId() . '"><center></center></div><div class="col-md-8 data1' . $this->getId() . '"><span class="cmd tooltips cmd cmd-widget" data-type="info" data-subtype="numeric" data-cmd_id="data"></span></div>';
     }
 
-    $html = template_replace($replace, getTemplate('core', $version, 'legrandeco', 'legrandeco'));
-    cache::set('legrandecoWidget' . $_version . $this->getId(), $html, 0);
-    return $html;
+    return $this->postToHtml($_version, template_replace($replace, getTemplate('core', $version, 'current', 'legrandeco')));
   }
 
   public function getInformations() {
