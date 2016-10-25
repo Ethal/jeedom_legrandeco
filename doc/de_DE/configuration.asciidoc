@@ -1,0 +1,7 @@
+==== Configuration du plugin
+
+Le plugin ne comporte pas de configuration générale.
+
+Il faut ajouter un équipement par compteur qu'on veut monitorer.
+
+Pour chaque équipement, il suffit de renseigner son adresse et sauvergarder, les informations sont alors automatiquement créées.
