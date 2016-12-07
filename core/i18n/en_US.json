@@ -1,10 +1,10 @@
 {
     "plugins\/legrandeco\/desktop\/php\/legrandeco.php": {
-        "Ajouter un équipement": "Ajouter un équipement",
-        "Rechercher": "Rechercher",
-        "Mes legrandeco": "Mes legrandeco",
-        "Sauvegarder": "Sauvegarder",
-        "Supprimer": "Supprimer",
+        "Ajouter un équipement": "Add equipment",
+        "Rechercher": "Search",
+        "Mes legrandeco": "My legrandeco",
+        "Sauvegarder": "Save",
+        "Supprimer": "Delete",
         "Configuration avancée": "Configuration avancée",
         "Equipement": "Equipement",
         "Commandes": "Commandes",
