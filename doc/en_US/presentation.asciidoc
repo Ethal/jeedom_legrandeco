@@ -18,3 +18,7 @@ Une mesure est faite toutes les 2 minutes.
 Un très bon article de présentation et mise en place de l'écocompteur est disponible sur le blog Domadoo :
 
 http://blog.domadoo.fr/2016/04/14/ecocompteur-legrand-consommations-electricite-eau-gaz/?utm_medium=feed&utm_source=feedpress.me&utm_campaign=Feed%3A+domadoohttp://blog.domadoo.fr/2016/04/14/ecocompteur-legrand-consommations-electricite-eau-gaz/?utm_medium=feed&utm_source=feedpress.me&utm_campaign=Feed%3A+domadoo
+
+Vous pouvez trouver l'écocompteur sur ce lien par exemple :
+
+* https://www.amazon.fr/gp/product/B01DWF9DLQ/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&camp=1642&creative=6746&creativeASIN=B01DWF9DLQ&linkCode=as2&tag=wayang-21[Ecocompteur Legrand avec 3 pinces]
