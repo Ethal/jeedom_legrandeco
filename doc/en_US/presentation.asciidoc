@@ -1,6 +1,6 @@
 ==== Ecocompteur Legrand, supervisor electricity, water and gas
 
-Ce plugin permet d'obtenir les informations de l'Ecocompteur Legrand (pinces Tor et compteurs à impulsions)
+This plugin makes it possible to obtain the information of the Ecocompteur Legrand (Tor/AoN clamps and impulse counters)
 
 L'écocompteur dispose des informations suivantes :
 
