@@ -2,7 +2,7 @@
 
 This plugin makes it possible to obtain the information of the Ecocompteur Legrand (Tor/AoN clamps and impulse counters)
 
-L'écocompteur dispose des informations suivantes :
+The ecocompteur has the following information:
 
 - 5 prises Tor pour la consommation électrique par groupe
 
