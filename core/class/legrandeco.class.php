@@ -20,8 +20,6 @@ require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
 class legrandeco extends eqLogic {
 
-  public static $_widgetPossibility = array('custom' => true);
-
   public static function cron() {
     foreach (eqLogic::byType('legrandeco',true) as $legrandeco) {
         $legrandeco->getInformations();
@@ -50,78 +48,6 @@ class legrandeco extends eqLogic {
     $this->getData();
     $this->getConso($this->getId());
     //$this->getTeleinfo();
-  }
-
-  public function toHtml($_version = 'dashboard') {
-    $replace = $this->preToHtml($_version);
-    if (!is_array($replace)) {
-      return $replace;
-    }
-    $version = jeedom::versionAlias($_version);
-    if ($this->getDisplay('hideOn' . $version) == 1) {
-      return '';
-    }
-
-    foreach ($this->getCmd('info') as $cmd) {
-      $replace['#' . $cmd->getLogicalId() . '_history#'] = '';
-      $replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
-      $replace['#' . $cmd->getLogicalId() . '#'] = $cmd->execCmd();
-      $replace['#' . $cmd->getLogicalId() . '_collect#'] = $cmd->getCollectDate();
-      if ($cmd->getIsHistorized() == 1) {
-        $replace['#' . $cmd->getLogicalId() . '_history#'] = 'history cursor';
-      }
-    }
-
-    $data = $this->getCmd(null, 'data1');
-    if (is_object($data) && $data->getIsVisible()) {
-      $replace['#data1#'] = '<div class="col-md-4 data1' . $this->getId() . '"><center><i class="fa fa-bolt"></i></center></div><div class="col-md-8 data1' . $this->getId() . '"><span class="cmd tooltips cmd cmd-widget" data-type="info" data-subtype="numeric" data-cmd_id="' . $data->getId() . '"><b>1 : ' . $data->getConfiguration('value') . ' W</b></span></div>';
-    } else {
-      $replace['#data1#'] = '<div class="col-md-4 data1' . $this->getId() . '"><center></center></div><div class="col-md-8 data1' . $this->getId() . '"><span class="cmd tooltips cmd cmd-widget" data-type="info" data-subtype="numeric" data-cmd_id="data"></span></div>';
-    }
-
-    $data = $this->getCmd(null, 'data2');
-    if (is_object($data) && $data->getIsVisible()) {
-      $replace['#data2#'] = '<div class="col-md-4 data1' . $this->getId() . '"><center><i class="fa fa-bolt"></i></center></div><div class="col-md-8 data1' . $this->getId() . '"><span class="cmd tooltips cmd cmd-widget" data-type="info" data-subtype="numeric" data-cmd_id="' . $data->getId() . '"><b>2 : ' . $data->getConfiguration('value') . ' W</b></span></div>';
-    } else {
-      $replace['#data2#'] = '<div class="col-md-4 data1' . $this->getId() . '"><center></center></div><div class="col-md-8 data1' . $this->getId() . '"><span class="cmd tooltips cmd cmd-widget" data-type="info" data-subtype="numeric" data-cmd_id="data"></span></div>';
-    }
-
-    $data = $this->getCmd(null, 'data3');
-    if (is_object($data) && $data->getIsVisible()) {
-      $replace['#data3#'] = '<div class="col-md-4 data1' . $this->getId() . '"><center><i class="fa fa-bolt"></i></center></div><div class="col-md-8 data1' . $this->getId() . '"><span class="cmd tooltips cmd cmd-widget" data-type="info" data-subtype="numeric" data-cmd_id="' . $data->getId() . '"><b>3 : ' . $data->getConfiguration('value') . ' W</b></span></div>';
-    } else {
-      $replace['#data3#'] = '<div class="col-md-4 data1' . $this->getId() . '"><center></center></div><div class="col-md-8 data1' . $this->getId() . '"><span class="cmd tooltips cmd cmd-widget" data-type="info" data-subtype="numeric" data-cmd_id="data"></span></div>';
-    }
-
-    $data = $this->getCmd(null, 'data4');
-    if (is_object($data) && $data->getIsVisible()) {
-      $replace['#data4#'] = '<div class="col-md-4 data1' . $this->getId() . '"><center><i class="fa fa-bolt"></i></center></div><div class="col-md-8 data1' . $this->getId() . '"><span class="cmd tooltips cmd cmd-widget" data-type="info" data-subtype="numeric" data-cmd_id="' . $data->getId() . '"><b>4 : ' . $data->getConfiguration('value') . ' W</b></span></div>';
-    } else {
-      $replace['#data4#'] = '<div class="col-md-4 data1' . $this->getId() . '"><center></center></div><div class="col-md-8 data1' . $this->getId() . '"><span class="cmd tooltips cmd cmd-widget" data-type="info" data-subtype="numeric" data-cmd_id="data"></span></div>';
-    }
-
-    $data = $this->getCmd(null, 'data5');
-    if (is_object($data) && $data->getIsVisible()) {
-      $replace['#data5#'] = '<div class="col-md-4 data1' . $this->getId() . '"><center><i class="fa fa-bolt"></i></center></div><div class="col-md-8 data1' . $this->getId() . '"><span class="cmd tooltips cmd cmd-widget" data-type="info" data-subtype="numeric" data-cmd_id="' . $data->getId() . '"><b>5 : ' . $data->getConfiguration('value') . ' W</b></span></div>';
-    } else {
-      $replace['#data5#'] = '<div class="col-md-4 data1' . $this->getId() . '"><center></center></div><div class="col-md-8 data1' . $this->getId() . '"><span class="cmd tooltips cmd cmd-widget" data-type="info" data-subtype="numeric" data-cmd_id="data"></span></div>';
-    }
-
-    $data = $this->getCmd(null, 'data6m3');
-    if (is_object($data) && $data->getIsVisible()) {
-      $replace['#data6#'] = '<div class="col-md-4 data1' . $this->getId() . '"><center><i class="fa fa-cloud"></i></center></div><div class="col-md-8 data1' . $this->getId() . '"><span class="cmd tooltips cmd cmd-widget" data-type="info" data-subtype="numeric" data-cmd_id="' . $data->getId() . '"><b>1 : ' . $data->getConfiguration('value') . ' W</b></span></div>';
-    } else {
-      $replace['#data6#'] = '<div class="col-md-4 data1' . $this->getId() . '"><center></center></div><div class="col-md-8 data1' . $this->getId() . '"><span class="cmd tooltips cmd cmd-widget" data-type="info" data-subtype="numeric" data-cmd_id="data"></span></div>';
-    }
-
-    $data = $this->getCmd(null, 'data7m3');
-    if (is_object($data) && $data->getIsVisible()) {
-      $replace['#data7#'] = '<div class="col-md-4 data1' . $this->getId() . '"><center><i class="fa fa-cloud"></i></center></div><div class="col-md-8 data1' . $this->getId() . '"><span class="cmd tooltips cmd cmd-widget" data-type="info" data-subtype="numeric" data-cmd_id="' . $data->getId() . '"><b>2 : ' . $data->getConfiguration('value') . ' W</b></span></div>';
-    } else {
-      $replace['#data7#'] = '<div class="col-md-4 data1' . $this->getId() . '"><center></center></div><div class="col-md-8 data1' . $this->getId() . '"><span class="cmd tooltips cmd cmd-widget" data-type="info" data-subtype="numeric" data-cmd_id="data"></span></div>';
-    }
-
-    return $this->postToHtml($_version, template_replace($replace, getTemplate('core', $version, 'legrandeco', 'legrandeco')));
   }
 
   public function getInformations() {
@@ -155,6 +81,9 @@ class legrandeco extends eqLogic {
             $newLegrand->setConfiguration('name', $name);
             $newLegrand->setConfiguration('value', $value);
             $newLegrand->setConfiguration('type', 'inst');
+            $newLegrand->setTemplate("mobile",'line' );
+            $newLegrand->setTemplate("dashboard",'line' );
+            $newLegrand->setDisplay('icon', '<i class="fa fa-flash"></i>');
             $newLegrand->save();
             $newLegrand->event($value);
           } else {
@@ -207,6 +136,9 @@ class legrandeco extends eqLogic {
           $newLegrand->setConfiguration('name', $name);
           $newLegrand->setConfiguration('value', $value);
           $newLegrand->setConfiguration('type', 'teleinfo');
+          $newLegrand->setTemplate("mobile",'line' );
+          $newLegrand->setTemplate("dashboard",'line' );
+          $newLegrand->setDisplay('icon', '<i class="fa fa-flash"></i>');
           $newLegrand->save();
           $newLegrand->event($value);
         } else {
@@ -275,6 +207,9 @@ public function getData() {
             $newLegrand->setConfiguration('name', $name);
             $newLegrand->setConfiguration('value', $value);
             $newLegrand->setConfiguration('type', 'teleinfo');
+            $newLegrand->setTemplate("mobile",'line' );
+            $newLegrand->setTemplate("dashboard",'line' );
+            $newLegrand->setDisplay('icon', '<i class="fa fa-flash"></i>');
             $newLegrand->save();
             $newLegrand->event($value);
           } else {
@@ -318,6 +253,9 @@ public function getConso($id) {
           $cmdlogic->setType('info');
           $cmdlogic->setName( 'Conso - Teleinfo' );
           $cmdlogic->setConfiguration('name', 'Conso Teleinfo');
+          $cmdlogic->setTemplate("mobile",'line' );
+          $cmdlogic->setTemplate("dashboard",'line' );
+          $cmdlogic->setDisplay('icon', '<i class="fa fa-flash"></i>');
         }
         $cmdlogic->setConfiguration('value', $data[5]);
         $cmdlogic->setConfiguration('type', 'csv');
@@ -334,6 +272,9 @@ public function getConso($id) {
           $cmdlogic->setType('info');
           $cmdlogic->setName( 'Conso - Pince 1' );
           $cmdlogic->setConfiguration('name', 'Pince 1');
+          $cmdlogic->setTemplate("mobile",'line' );
+          $cmdlogic->setTemplate("dashboard",'line' );
+          $cmdlogic->setDisplay('icon', '<i class="fa fa-flash"></i>');
         }
         $cmdlogic->setConfiguration('value', $data[7]);
         $cmdlogic->setConfiguration('type', 'csv');
@@ -350,6 +291,9 @@ public function getConso($id) {
           $cmdlogic->setType('info');
           $cmdlogic->setName( 'Conso - Pince 2' );
           $cmdlogic->setConfiguration('name', 'Pince 2');
+          $cmdlogic->setTemplate("mobile",'line' );
+          $cmdlogic->setTemplate("dashboard",'line' );
+          $cmdlogic->setDisplay('icon', '<i class="fa fa-flash"></i>');
         }
         $cmdlogic->setConfiguration('value', $data[9]);
         $cmdlogic->setConfiguration('type', 'csv');
@@ -366,6 +310,9 @@ public function getConso($id) {
           $cmdlogic->setType('info');
           $cmdlogic->setName( 'Conso - Pince 3' );
           $cmdlogic->setConfiguration('name', 'Pince 3');
+          $cmdlogic->setTemplate("mobile",'line' );
+          $cmdlogic->setTemplate("dashboard",'line' );
+          $cmdlogic->setDisplay('icon', '<i class="fa fa-flash"></i>');
         }
         $cmdlogic->setConfiguration('value', $data[11]);
         $cmdlogic->setConfiguration('type', 'csv');
@@ -382,6 +329,9 @@ public function getConso($id) {
           $cmdlogic->setType('info');
           $cmdlogic->setName( 'Conso - Pince 4' );
           $cmdlogic->setConfiguration('name', 'Pince 4');
+          $cmdlogic->setTemplate("mobile",'line' );
+          $cmdlogic->setTemplate("dashboard",'line' );
+          $cmdlogic->setDisplay('icon', '<i class="fa fa-flash"></i>');
         }
         $cmdlogic->setConfiguration('value', $data[13]);
         $cmdlogic->setConfiguration('type', 'csv');
@@ -398,6 +348,9 @@ public function getConso($id) {
           $cmdlogic->setType('info');
           $cmdlogic->setName( 'Conso - Pince 5' );
           $cmdlogic->setConfiguration('name', 'Pince 5');
+          $cmdlogic->setTemplate("mobile",'line' );
+          $cmdlogic->setTemplate("dashboard",'line' );
+          $cmdlogic->setDisplay('icon', '<i class="fa fa-flash"></i>');
         }
         $cmdlogic->setConfiguration('value', $data[15]);
         $cmdlogic->setConfiguration('type', 'csv');
@@ -414,6 +367,9 @@ public function getConso($id) {
           $cmdlogic->setType('info');
           $cmdlogic->setName( 'Conso - Impulsion 1' );
           $cmdlogic->setConfiguration('name', 'Impulsion 1');
+          $cmdlogic->setTemplate("mobile",'line' );
+          $cmdlogic->setTemplate("dashboard",'line' );
+          $cmdlogic->setDisplay('icon', '<i class="fa fa-cloud"></i>');
         }
         $cmdlogic->setConfiguration('value', $data[17]);
         $cmdlogic->setConfiguration('type', 'csv');
@@ -430,6 +386,9 @@ public function getConso($id) {
           $cmdlogic->setType('info');
           $cmdlogic->setName( 'Conso - Impulsion 2' );
           $cmdlogic->setConfiguration('name', 'Impulsion 2');
+          $cmdlogic->setTemplate("mobile",'line' );
+          $cmdlogic->setTemplate("dashboard",'line' );
+          $cmdlogic->setDisplay('icon', '<i class="fa fa-cloud"></i>');
         }
         $cmdlogic->setConfiguration('value', $data[18]);
         $cmdlogic->setConfiguration('type', 'csv');
@@ -446,6 +405,9 @@ public function getConso($id) {
           $cmdlogic->setType('info');
           $cmdlogic->setName( 'Conso - Vol Impulsion 1' );
           $cmdlogic->setConfiguration('name', 'Vol Impulsion 1');
+          $cmdlogic->setTemplate("mobile",'line' );
+          $cmdlogic->setTemplate("dashboard",'line' );
+          $cmdlogic->setDisplay('icon', '<i class="fa fa-flash"></i>');
         }
         $cmdlogic->setConfiguration('value', $data[20]);
         $cmdlogic->setConfiguration('type', 'csv');
@@ -462,6 +424,9 @@ public function getConso($id) {
           $cmdlogic->setType('info');
           $cmdlogic->setName( 'Conso - Vol Impulsion 2' );
           $cmdlogic->setConfiguration('name', 'Vol Impulsion 2');
+          $cmdlogic->setTemplate("mobile",'line' );
+          $cmdlogic->setTemplate("dashboard",'line' );
+          $cmdlogic->setDisplay('icon', '<i class="fa fa-flash"></i>');
         }
         $cmdlogic->setConfiguration('value', $data[21]);
         $cmdlogic->setConfiguration('type', 'csv');
