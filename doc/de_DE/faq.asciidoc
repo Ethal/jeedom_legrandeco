@@ -1,5 +1,5 @@
 [panel,primary]
 .Stützt sich das Plugin auf APIs Dritter ?
 --
-Non, les informations sont obtenues localement du module.
+Nein, die Informationen werden lokal vom Modul gewonnen.
 --
